@@ -12,7 +12,7 @@
   
   Début :
       Demander un pseudo à chaque joueur
-      premier à joueur : random entre les deux
+      premier à jouer : random entre les deux
       
   Placement :
       Chaque joueur place ses bâtiments
