@@ -3,6 +3,8 @@ from class_ship import Ship
 
 gameboard = Gameboard()
 
+gameboard.DrawOpponentBoard()
+gameboard.DrawPlayerBoard()
 
 for x in range(0, 6):
 	size = int(input("Taille bateau "))
@@ -10,7 +12,3 @@ for x in range(0, 6):
 	posY = int(input("posY "))
 
 	Ship(size, posX, posY)
-
-
-gameboard.DrawOpponentBoard()
-gameboard.DrawPlayerBoard()
