@@ -1,3 +1,6 @@
+# Main file of the game :
+#	Launch and processing
+
 from class_gameboard import Gameboard
 from class_ship import Ship
 

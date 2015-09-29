@@ -1,5 +1,5 @@
 class Gameboard():
-	""" Plateau du jeu """
+	""" Gestion du plateau de jeu (Affichage et traitements du contenu des cases) """
 
 	tablePlayer = [
 		["   ", "   ", "   ", "   ", "   ", "   ", "   ", "   ", "   ", "   "],
