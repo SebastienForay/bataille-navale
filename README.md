@@ -7,8 +7,8 @@
       1 contre-torpilleur (3 cases)
       1 torpilleur (2 cases)
   taille :
-      1 -> 10
-      A -> J
+      1 -> 10 horizontal
+      A -> J vertical
   
   Début :
       Demander un pseudo à chaque joueur
