@@ -1,5 +1,5 @@
 class Ship():
-	""" Objet représentant un bateau """
+	""" Gestion des bateaux """
 
 	size = 0
 	posX = 0
