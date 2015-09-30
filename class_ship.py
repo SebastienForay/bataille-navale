@@ -3,15 +3,25 @@ class Ship():
 
 	size = 0
 	posX = 0
-	posY = 0
+	posY = ''
+	orientation = ''
 
 	tablePositions = []
 
-	def __init__(self, size_init, posX_init, posY_init):
+	def __init__(self, size_init, posX_init, posY_init, orientation_init):
+		self.Create(size_init, posX_init, posY_init, orientation_init)
+
+	def Create(self, size_init, posX_init, posY_init, orientation_init):
 		self.size = int(size_init)
-		self.posX = posX_init
-		self.posY = posY_init
+		self.posX = int(posX_init)
+		self.posY = str(posY_init)
+		self.orientation = str(orientation_init)
 
 		# calcul des coordonnées occupées par le bateau (fonction) pour ajout dans tablePositions
+		calculatePositions()
 		
-		print("Bateau créé : longueur de " + str(self.size) + ", position (" + str(self.posX) + "/" + str(self.posY) + ")")
+		print("Bateau créé : longueur de " + str(self.size) + ", position (" + str(self.posX) + "/" + str(self.posY) + "), orientation : " + str(self.orientation))
+
+
+	def calculatePositions(self):
+		pass
