@@ -18,7 +18,7 @@ class Ship():
 		self.orientation = str(orientation_init)
 
 		# calcul des coordonnées occupées par le bateau (fonction) pour ajout dans tablePositions
-		calculatePositions()
+		#self.calculatePositions()
 		
 		print("Bateau créé : longueur de " + str(self.size) + ", position (" + str(self.posX) + "/" + str(self.posY) + "), orientation : " + str(self.orientation))
 
