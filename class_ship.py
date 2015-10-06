@@ -1,11 +1,11 @@
 class Ship():
 	""" Objet représentant un bateau """
-
 	def __init__(self, size_init, posX_init, posY_init, orientation_init):
 		self.size = 0
 		self.posX = 0
 		self.posY = ''
 		self.orientation = ''
+		self.bCreated = False
 
 		self.tablePosYLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', ]
 		self.tablePositions = []
@@ -19,14 +19,15 @@ class Ship():
 		self.orientation = str(orientation_init)
 
 		# calcul des coordonnées occupées par le bateau (fonction) pour ajout dans tablePositions
-		self.calculatePositions()
-		
-		print("Bateau créé : longueur de " + str(self.size) + ", position (" + str(self.posX) + "/" + str(self.posY) + "), orientation : " + str(self.orientation))
-
+		if self.calculatePositions() == True:
+			print("Bateau créé : longueur de " + str(self.size) + ", position (" + str(self.posX) + "/" + str(self.posY) + "), orientation : " + str(self.orientation))
+			self.bCreated = True
+		else:
+			print("Erreur à la création du bateau ! Veuillez le refaire !")
+			self.bCreated = False
 
 	def calculatePositions(self):
 		bResultat = True
-		print("Calcul des positions")
 
 		tmpPosX = self.posX
 		tmpPosY = self.posY
@@ -34,6 +35,7 @@ class Ship():
 
 		position = '' + str(tmpPosX) + str(tmpPosY)
 		self.tablePositions.append(position)
+		self.tablePosAllShips.append(position)
 
 		posYInt = self.tablePosYLetters.index(tmpPosY) + 1
 
@@ -43,8 +45,8 @@ class Ship():
 				for x in range(posYInt-1, posYInt-tmpSize, -1):
 					position = '' + str(tmpPosX) + str(self.tablePosYLetters[x-1])
 					self.tablePositions.append(position)
+					self.tablePosAllShips.append(position)
 			else:
-				print("Changez de position, il n'y a pas assez de place !")
 				bResultat = False
 		# Calcul vers le bas
 		elif self.orientation == 'D':
@@ -52,8 +54,8 @@ class Ship():
 				for x in range(posYInt+1, posYInt+tmpSize):
 					position = '' + str(tmpPosX) + str(self.tablePosYLetters[x-1])
 					self.tablePositions.append(position)
+					self.tablePosAllShips.append(position)
 			else:
-				print("Changez de position, il n'y a pas assez de place !")
 				bResultat = False
 		# Calcul vers la gauche
 		elif self.orientation == 'L':
@@ -61,8 +63,8 @@ class Ship():
 				for x in range(tmpPosX-1, tmpPosX-tmpSize, -1):
 					position = '' + str(x) + str(self.tablePosYLetters[posYInt-1])
 					self.tablePositions.append(position)
+					self.tablePosAllShips.append(position)
 			else:
-				print("Changez de position, il n'y a pas assez de place !")
 				bResultat = False
 		# Calcul vers la droite
 		elif self.orientation == 'R':
@@ -70,11 +72,14 @@ class Ship():
 				for x in range(tmpPosX+1, tmpPosX+tmpSize):
 					position = '' + str(x) + str(self.tablePosYLetters[posYInt-1])
 					self.tablePositions.append(position)
+					self.tablePosAllShips.append(position)
 			else:
-				print("Changez de position, il n'y a pas assez de place !")
 				bResultat = False
 
-		for x in range(0, len(self.tablePositions)):
-			print(self.tablePositions[x])
+		# Print les positions calculées pour le debug
+		if bResultat == True:
+			print("Positions du bateau :")
+			for x in range(0, len(self.tablePositions)):
+				print(self.tablePositions[x])
 
 		return bResultat
