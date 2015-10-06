@@ -3,18 +3,16 @@ from class_ship import Ship
 
 class Player():
 
-	pseudo = ""
-
-	# Plateau où sont placés les bateaux du joueur
-	plateauPlayerShips = [ ["   "]*10 for _i in range(10) ]
-	# Plateau où le joueur voit où il a déjà tiré et touché des bateaux
-	plateauPlayerFiring = [ ["   "]*10 for _i in range(10) ]
-
-	#~Tableau contenant les 5 bateaux du joueur
-	tableShips = []
-	gameboard = 0
-
 	def __init__(self, pseudo_init):
+		# Plateau où sont placés les bateaux du joueur
+		self.plateauPlayerShips = [ ["   "]*10 for _i in range(10) ]
+		# Plateau où le joueur voit où il a déjà tiré et touché des bateaux
+		self.plateauPlayerFiring = [ ["   "]*10 for _i in range(10) ]
+
+		# Tableau contenant les 5 bateaux du joueur
+		self.tableShips = []
+		self.gameboard = 0
+
 		self.pseudo = pseudo_init
 		self.gameboard = Gameboard()
 
@@ -103,6 +101,8 @@ class Player():
 			tmpShip = Ship(int(shipSize), int(posX), str(posY), str(orientation))
 			# Ajout du bateau au tableau de sauvegarde
 			self.tableShips.append(tmpShip)
+
+			print(self.tableShips[shipCount].tablePositions)
 
 			### TODO
 			#récupérer le tableau des positions (dans tmpShip.tablePositions) pour remplir le plateauPlayerShips visuel

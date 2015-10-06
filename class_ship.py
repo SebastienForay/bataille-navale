@@ -1,16 +1,15 @@
 class Ship():
 	""" Objet représentant un bateau """
 
-	size = 0
-	posX = 0
-	posY = ''
-	orientation = ''
-
-	tablePosYLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', ]
-
-	tablePositions = []
-
 	def __init__(self, size_init, posX_init, posY_init, orientation_init):
+		self.size = 0
+		self.posX = 0
+		self.posY = ''
+		self.orientation = ''
+
+		self.tablePosYLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', ]
+		self.tablePositions = []
+
 		self.Create(size_init, posX_init, posY_init, orientation_init)
 
 	def Create(self, size_init, posX_init, posY_init, orientation_init):
@@ -26,6 +25,7 @@ class Ship():
 
 
 	def calculatePositions(self):
+		bResultat = True
 		print("Calcul des positions")
 
 		tmpPosX = self.posX
@@ -37,20 +37,44 @@ class Ship():
 
 		posYInt = self.tablePosYLetters.index(tmpPosY) + 1
 
-		# suffisemment de place vers le haut
-		if (self.orientation == 'U') and (posYInt - tmpSize >= 0):
-			for x in range(posYInt, posYInt-tmpSize, -1):
-				position = '' + str(tmpPosX) + str(self.tablePosYLetters[x-1])
-				self.tablePositions.append(position)
-				print('' + str(position))
-		else:
-			print("Changez de position, il n'y a pas assez de place !")
-		# suffisemment de place vers le bas
-		if (self.orientation == 'D') and (posYInt + tmpSize < 10):
-			pass
-		# suffisemment de place vers la gauche
-		elif (self.orientation == 'L') and (tmpPosX - size >= 0):
-			pass
-		# suffisemment de place vers la droite
-		elif (self.orientation == 'R') and (tmpPosX + size < 10):
-			pass
+		# Calcul vers le haut
+		if self.orientation == 'U':
+			if posYInt - tmpSize >= 0:
+				for x in range(posYInt-1, posYInt-tmpSize, -1):
+					position = '' + str(tmpPosX) + str(self.tablePosYLetters[x-1])
+					self.tablePositions.append(position)
+			else:
+				print("Changez de position, il n'y a pas assez de place !")
+				bResultat = False
+		# Calcul vers le bas
+		elif self.orientation == 'D':
+			if posYInt + (tmpSize-1) <= 10:
+				for x in range(posYInt+1, posYInt+tmpSize):
+					position = '' + str(tmpPosX) + str(self.tablePosYLetters[x-1])
+					self.tablePositions.append(position)
+			else:
+				print("Changez de position, il n'y a pas assez de place !")
+				bResultat = False
+		# Calcul vers la gauche
+		elif self.orientation == 'L':
+			if tmpPosX - tmpSize >= 0:
+				for x in range(tmpPosX-1, tmpPosX-tmpSize, -1):
+					position = '' + str(x) + str(self.tablePosYLetters[posYInt-1])
+					self.tablePositions.append(position)
+			else:
+				print("Changez de position, il n'y a pas assez de place !")
+				bResultat = False
+		# Calcul vers la droite
+		elif self.orientation == 'R':
+			if tmpPosX + (tmpSize-1) <= 10:
+				for x in range(tmpPosX+1, tmpPosX+tmpSize):
+					position = '' + str(x) + str(self.tablePosYLetters[posYInt-1])
+					self.tablePositions.append(position)
+			else:
+				print("Changez de position, il n'y a pas assez de place !")
+				bResultat = False
+
+		for x in range(0, len(self.tablePositions)):
+			print(self.tablePositions[x])
+
+		return bResultat

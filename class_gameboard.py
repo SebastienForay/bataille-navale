@@ -4,16 +4,9 @@ class Gameboard():
 			Contient le plateau de tir et le plateau des bateaux du joueur
 	"""
 
-
-
-
-	""" Permet la correspondance entre numéro de la ligne et la coordonnée Y
-		de la ligne identifiée par une lettre
-	"""
-	tableMatchesLinePosY = [ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
-
+	
 	def __init__(self):
-		pass
+		tableMatchesLinePosY = [ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
 
 	def DrawFiringBoard(self):
 		print("			   1   2   3   4   5   6   7   8   9   10")
