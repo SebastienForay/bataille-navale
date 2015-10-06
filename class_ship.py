@@ -6,6 +6,8 @@ class Ship():
 	posY = ''
 	orientation = ''
 
+	tablePosYLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', ]
+
 	tablePositions = []
 
 	def __init__(self, size_init, posX_init, posY_init, orientation_init):
@@ -24,14 +26,31 @@ class Ship():
 
 
 	def calculatePositions(self):
-		position = '' + str(self.posX) + str(self.posY)
-		tablePositions.append(position)
+		print("Calcul des positions")
 
-		if self.orientation == 'U':
+		tmpPosX = self.posX
+		tmpPosY = self.posY
+		tmpSize = self.size
+
+		position = '' + str(tmpPosX) + str(tmpPosY)
+		self.tablePositions.append(position)
+
+		posYInt = self.tablePosYLetters.index(tmpPosY) + 1
+
+		# suffisemment de place vers le haut
+		if (self.orientation == 'U') and (posYInt - tmpSize >= 0):
+			for x in range(posYInt, posYInt-tmpSize, -1):
+				position = '' + str(tmpPosX) + str(self.tablePosYLetters[x-1])
+				self.tablePositions.append(position)
+				print('' + str(position))
+		else:
+			print("Changez de position, il n'y a pas assez de place !")
+		# suffisemment de place vers le bas
+		if (self.orientation == 'D') and (posYInt + tmpSize < 10):
 			pass
-		elif self.orientation == 'D':
+		# suffisemment de place vers la gauche
+		elif (self.orientation == 'L') and (tmpPosX - size >= 0):
 			pass
-		elif self.orientation == 'L':
-			pass
-		elif self.orientation == 'R':
+		# suffisemment de place vers la droite
+		elif (self.orientation == 'R') and (tmpPosX + size < 10):
 			pass
