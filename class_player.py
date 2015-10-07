@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from class_gameboard import Gameboard
 from class_ship import Ship
 
@@ -125,3 +128,5 @@ class Player():
 					### TODO
 					#récupérer le tableau des positions (dans tmpShip.tablePositions) pour remplir le plateauPlayerShips visuel
 					break
+				elif tmpShip.bCreated == False:
+					del tmpShip

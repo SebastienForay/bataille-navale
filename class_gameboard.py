@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 class Gameboard():
 	""" Plateau du jeu
 			Gestion du plateau de jeu (Affichage et traitements du contenu des cases)
