@@ -18,7 +18,7 @@ class Ship():
 
 		self.tablePositions = []
 
-		self.Create(player, size_init, posX_init, posY_init, orientation_init)
+		self.Create(size_init, posX_init, posY_init, orientation_init)
 
 	def Create(self, size_init, posX_init, posY_init, orientation_init):
 		self.size = int(size_init)
@@ -27,7 +27,7 @@ class Ship():
 		self.orientation = str(orientation_init)
 
 		# calcul des coordonnées occupées par le bateau (fonction) pour ajout dans tablePositions
-		if self.calculatePositions(player) == True:
+		if self.calculatePositions() == True:
 			print("Bateau créé : longueur de " + str(self.size) + ", position (" + str(self.posX) + "/" + str(self.posY) + "), orientation : " + str(self.orientation))
 			self.bCreated = True
 		else:

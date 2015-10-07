@@ -108,8 +108,14 @@ class Player():
 					# Ajout du bateau au tableau de sauvegarde
 					self.tableShips.append(tmpShip)
 
-					print(self.tableShips[shipCount].tablePositions)
-
+					if self.pNumber == 1:
+						print("All pos :")
+						for x in range(0, len(self.tableShips[shipCount].tableAllPosShipsP1)):
+							print(self.tableShips[shipCount].tableAllPosShipsP1[x])
+					elif self.pNumber == 2:
+						print("All pos :")
+						for x in range(0, len(self.tableShips[shipCount].tableAllPosShipsP2)):
+							print(self.tableShips[shipCount].tableAllPosShipsP2[x])
 					### TODO
 					#récupérer le tableau des positions (dans tmpShip.tablePositions) pour remplir le plateauPlayerShips visuel
 					break
