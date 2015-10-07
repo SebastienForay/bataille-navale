@@ -3,7 +3,7 @@ from class_ship import Ship
 
 class Player():
 
-	def __init__(self, pseudo_init):
+	def __init__(self, pNumber_init, pseudo_init):
 		# Plateau où sont placés les bateaux du joueur
 		self.plateauPlayerShips = [ ["   "]*10 for _i in range(10) ]
 		# Plateau où le joueur voit où il a déjà tiré et touché des bateaux
@@ -13,6 +13,7 @@ class Player():
 		self.tableShips = []
 		self.gameboard = 0
 
+		self.pNumber = pNumber_init
 		self.pseudo = pseudo_init
 		self.gameboard = Gameboard()
 
@@ -57,7 +58,7 @@ class Player():
 				# Saisie du caractère entre A et J de la position Y du bateau (ligne)
 				while True:
 					try:
-						posY = str(input("Position Y (A - J) : "))
+						posY = str(input("Position Y (A - J) : ").upper())
 					except ValueError:
 						print("ERREUR : Veuillez saisir une lettre entre A et J")
 						continue
@@ -80,7 +81,7 @@ class Player():
 				# Saisie du caractère entre U,D,L et R de l'orientation du bateau
 				while True:
 					try:
-						orientation = str(input("Orientation : U (up), D (down), L (left) ou R (right) : "))
+						orientation = str(input("Orientation : U (up), D (down), L (left) ou R (right) : ").upper())
 					except ValueError:
 						print("ERREUR : Veuillez saisir une lettre entre A et J")
 						continue
@@ -101,7 +102,7 @@ class Player():
 							continue
 
 				# Instanciation du bateau avec les paramètres précédemment saisis
-				tmpShip = Ship(int(shipSize), int(posX), str(posY), str(orientation))
+				tmpShip = Ship(int(self.pNumber), int(shipSize), int(posX), str(posY), str(orientation))
 
 				if tmpShip.bCreated == True:
 					# Ajout du bateau au tableau de sauvegarde
