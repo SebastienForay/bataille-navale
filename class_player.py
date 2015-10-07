@@ -115,7 +115,7 @@ class Player():
 					# Ajout du bateau au tableau de sauvegarde
 					self.tableShips.append(tmpShip)
 
-					if self.pNumber == 1:
+					"""if self.pNumber == 1:
 						print("[DEBUG] All pos :")
 						for x in range(0, len(self.tableShips[shipCount].tableAllPosShipsP1)):
 							sys.stdout.write(self.tableShips[shipCount].tableAllPosShipsP1[x] + ', ')
@@ -126,23 +126,28 @@ class Player():
 						for x in range(0, len(self.tableShips[shipCount].tableAllPosShipsP2)):
 							sys.stdout.write(self.tableShips[shipCount].tableAllPosShipsP2[x] + ', ')
 							sys.stdout.flush()
-						print('\n')
+						print('\n')"""
 					### TODO
-					#récupérer le tableau des positions (dans tmpShip.tablePositions) pour remplir le plateauPlayerShips visuel
 					break
 				elif tmpShip.bCreated == False:
 					del tmpShip
 
 	def insertPlateau(self):
 		for shipCount in range(0, 5):
-			for x in range(0, len(self.tableShips[shipCount].tableAllPosShipsP1)):
-				pos = self.tableShips[shipCount].tableAllPosShipsP1[x]
-				lenPos = len(pos)
-				pos1 = int(pos[1:lenPos-2]) - 1
-				pos2 = self.tableShips[shipCount].tablePosYLetters.index(pos[lenPos-2:lenPos-1])
-				if pos[lenPos-2:lenPos-1] == "J":
-					print(pos1,pos2)
-				self.plateauPlayerShips[pos1][pos2] = " O "
+			if self.pNumber == 1:
+				for x in range(0, len(self.tableShips[shipCount].tableAllPosShipsP1)):
+					pos = self.tableShips[shipCount].tableAllPosShipsP1[x]
+					lenPos = len(pos)
+					pos1 = int(pos[0:lenPos-1]) - 1
+					pos2 = self.tableShips[shipCount].tablePosYLetters.index(pos[lenPos-1:])
+					self.plateauPlayerShips[pos1][pos2] = " O "
+			elif self.pNumber == 2:
+				for x in range(0, len(self.tableShips[shipCount].tableAllPosShipsP2)):
+					pos = self.tableShips[shipCount].tableAllPosShipsP2[x]
+					lenPos = len(pos)
+					pos1 = int(pos[0:lenPos-1]) - 1
+					pos2 = self.tableShips[shipCount].tablePosYLetters.index(pos[lenPos-1:])
+					self.plateauPlayerShips[pos1][pos2] = " O "
 
 	def printPlateauShip(self):
 		#for x in range (0, 10):
@@ -150,3 +155,45 @@ class Player():
 		#		print(self.plateauPlayerShips[x][y])
 		self.gameboard = Gameboard(self.plateauPlayerShips)
 		self.gameboard.DrawPlayerBoard()
+
+	def play(self):
+		posXFire = 0
+		posYFire = ''
+
+		while True:
+			try:
+				posXFire = int(input("Position de tir (1 - 10) : "))
+			except ValueError:
+				print("ERREUR : Veuillez saisir un nombre entre 1 et 10")
+				continue
+			else:
+				if int(posXFire) < 1 or int(posXFire) > 10:
+					print("ERREUR : Veuillez saisir un nombre entre 1 et 10")
+					continue
+				else:
+					break
+
+		# Saisie du caractère entre A et J de la position Y du bateau (ligne)
+		while True:
+			try:
+				posYFire = str(input("Position de tir (A - J) : ").upper())
+			except ValueError:
+				print("ERREUR : Veuillez saisir une lettre entre A et J")
+				continue
+			else:
+				bTestResult = False
+				tableAuthorizedLetters = ['A','B','C','D','E','F','G','H','I','J']
+				for x in range(0, len(tableAuthorizedLetters)):
+					if str(tableAuthorizedLetters[x]) != str(posYFire):
+						bTestResult = False
+					else:
+						bTestResult = True
+						break
+
+				if bTestResult == True:
+					break
+				else:
+					print("ERREUR : Veuillez saisir une lettre entre A et J")
+					continue
+
+		return '' + str(posXFire) + str(posYFire)
