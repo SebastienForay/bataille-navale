@@ -140,13 +140,8 @@ class Player():
 				lenPos = len(pos)
 				pos1 = int(pos[1:lenPos-2]) - 1
 				pos2 = self.tableShips[shipCount].tablePosYLetters.index(pos[lenPos-2:lenPos-1])
-				if pos[lenPos-2:lenPos-1] == "J":
-					print(pos1,pos2)
 				self.plateauPlayerShips[pos1][pos2] = " O "
 
 	def printPlateauShip(self):
-		#for x in range (0, 10):
-		#	for y in range (0, 10):
-		#		print(self.plateauPlayerShips[x][y])
 		self.gameboard = Gameboard(self.plateauPlayerShips)
 		self.gameboard.DrawPlayerBoard()
