@@ -36,7 +36,12 @@ class Gameboard():
 				lineToFill += "║"
 			print(lineToFill)
 			print(lineSeparator)
-		print("			J║   ║   ║   ║   ║   ║   ║   ║   ║   ║   ║")
+
+		lineToFill = "			J║"
+		for col in range(0, 10):
+				lineToFill += self.pPlayerShip[col][9]
+				lineToFill += "║"
+		print(lineToFill)
 		print("			 ╚═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╝\n")
 
 		
