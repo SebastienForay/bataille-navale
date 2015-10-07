@@ -2,6 +2,7 @@ from class_gameboard import Gameboard
 from class_ship import Ship
 
 class Player():
+	tablePosYLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', ]
 
 	def __init__(self, pNumber_init, pseudo_init):
 		# Plateau où sont placés les bateaux du joueur
@@ -11,13 +12,14 @@ class Player():
 
 		# Tableau contenant les 5 bateaux du joueur
 		self.tableShips = []
-		self.gameboard = 0
 
 		self.pNumber = pNumber_init
 		self.pseudo = pseudo_init
-		self.gameboard = Gameboard()
+		self.gameboard = 0
 
 		self.placeShips()
+		self.insertPlateau()
+		self.printPlateauShip()
 
 	def placeShips(self):
 		print("Vous devez placer vos bateaux. Vous en disposer de 5 : \n	- 1 porte-avions (5 cases)\n	- 1 croiseur (4 cases)\n	- 1 sous-marin( 3 cases)\n	- 1 contre-torpilleur (3 cases) \n	- 1 torpilleur (2 cases) ")
@@ -119,3 +121,18 @@ class Player():
 					### TODO
 					#récupérer le tableau des positions (dans tmpShip.tablePositions) pour remplir le plateauPlayerShips visuel
 					break
+
+	def insertPlateau(self):
+		for shipCount in range(0, 5):
+			for x in range(0, len(self.tableShips[shipCount].tableAllPosShipsP1)):
+				pos = self.tableShips[shipCount].tableAllPosShipsP1[x]
+				pos1 = int(pos[:1])
+				pos2 = self.tableShips[shipCount].tablePosYLetters.index(pos[1:]) + 1
+				self.plateauPlayerShips[pos1][pos2] = " O "
+
+	def printPlateauShip(self):
+		for x in range (0, 10):
+			for y in range (0, 10):
+				print(self.plateauPlayerShips[x][y])
+		self.gameboard = Gameboard(self.plateauPlayerShips)
+		self.gameboard.DrawPlayerBoard()

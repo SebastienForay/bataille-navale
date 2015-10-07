@@ -5,8 +5,9 @@ class Gameboard():
 	"""
 
 	
-	def __init__(self):
-		tableMatchesLinePosY = [ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+	def __init__(self, pPlayerShip_init):
+		self.tableMatchesLinePosY = [ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+		self.pPlayerShip = pPlayerShip_init
 
 	def DrawFiringBoard(self):
 		print("			   1   2   3   4   5   6   7   8   9   10")
@@ -28,7 +29,8 @@ class Gameboard():
 			lineToFill = "			" + str(self.tableMatchesLinePosY[line]) + "║"
 			lineSeparator = "			 ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣"
 			for col in range(0, 10):
-				lineToFill += "   ║"
+				lineToFill += self.pPlayerShip[col][line]
+				lineToFill += "║"
 			print(lineToFill)
 			print(lineSeparator)
 		print("			J║   ║   ║   ║   ║   ║   ║   ║   ║   ║   ║")
