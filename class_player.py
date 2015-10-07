@@ -1,6 +1,8 @@
 from class_gameboard import Gameboard
 from class_ship import Ship
 
+import sys
+
 class Player():
 
 	def __init__(self, pNumber_init, pseudo_init):
@@ -109,13 +111,17 @@ class Player():
 					self.tableShips.append(tmpShip)
 
 					if self.pNumber == 1:
-						print("All pos :")
+						print("[DEBUG] All pos :")
 						for x in range(0, len(self.tableShips[shipCount].tableAllPosShipsP1)):
-							print(self.tableShips[shipCount].tableAllPosShipsP1[x])
+							sys.stdout.write(self.tableShips[shipCount].tableAllPosShipsP1[x] + ', ')
+							sys.stdout.flush()
+						print('\n')
 					elif self.pNumber == 2:
-						print("All pos :")
+						print("[DEBUG] All pos :")
 						for x in range(0, len(self.tableShips[shipCount].tableAllPosShipsP2)):
-							print(self.tableShips[shipCount].tableAllPosShipsP2[x])
+							sys.stdout.write(self.tableShips[shipCount].tableAllPosShipsP2[x] + ', ')
+							sys.stdout.flush()
+						print('\n')
 					### TODO
 					#récupérer le tableau des positions (dans tmpShip.tablePositions) pour remplir le plateauPlayerShips visuel
 					break
