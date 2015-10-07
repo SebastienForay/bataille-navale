@@ -4,7 +4,7 @@
 from class_gameboard import Gameboard
 from class_ship import Ship
 
-import sys
+import os, sys
 
 class Player():
 	tablePosYLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', ]
@@ -20,11 +20,11 @@ class Player():
 
 		self.pNumber = pNumber_init
 		self.pseudo = pseudo_init
-		self.gameboard = 0
+		self.gameboard = Gameboard(self.plateauPlayerShips, self.plateauPlayerFiring)
 
 		self.placeShips()
 		self.insertPlateau()
-		self.printPlateauShip()
+		self.printGameboard()
 
 	def placeShips(self):
 		print("Vous devez placer vos bateaux. Vous en disposer de 5 : \n	- 1 porte-avions (5 cases)\n	- 1 croiseur (4 cases)\n	- 1 sous-marin( 3 cases)\n	- 1 contre-torpilleur (3 cases) \n	- 1 torpilleur (2 cases) ")
@@ -149,8 +149,9 @@ class Player():
 					pos2 = self.tableShips[shipCount].tablePosYLetters.index(pos[lenPos-1:])
 					self.plateauPlayerShips[pos1][pos2] = " O "
 
-	def printPlateauShip(self):
-		self.gameboard = Gameboard(self.plateauPlayerShips)
+	def printGameboard(self):
+		os.system('cls' if os.name == 'nt' else 'clear')
+		self.gameboard.DrawFiringBoard()
 		self.gameboard.DrawPlayerBoard()
 
 	def play(self):
