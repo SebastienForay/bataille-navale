@@ -87,19 +87,30 @@ class Interface():
 		x = event.x
 		y = event.y
 		print(x,y)
+		caller = event.widget
+		for line in range(50,550,50):
+			for col in range(50,550,50):
+				#clique dans le tableau
+				if x > line and x < line+50:
+					if y > col and y < col+50:
+						caller.create_rectangle(line, col, line+50, col+50, fill="red")
+		"""
 		if x > 50 and y > 50:
 			for line in range(50,550,50):
 				for col in range(50,550,50):
+					#clique dans le tableau
 					if x > line and x < line+50:
 						if y > col and y < col+50:
 							print(line,col)
 							for children in self.root.children.values():
 								for childs in children.children.values():
 									for Unchilds in childs.children.values():
-										name = Unchilds.winfo_class
+										#Unchilds = childs.children.values()
+										#name = childs.winfo_containing(x,y)
+										name = str(childs.winfo_pathname(childs.winfo_id()))
 										print(name)
 										#Unchilds.create_rectangle(line, col, line+50, col+50, background="red")
-							"""frame = self.root.frame
+							frame = self.root.frame
 							for children in frame.children.values():
 								info = children.winfo_class()
 								print(info)
