@@ -2,26 +2,63 @@
 #-*- coding utf-8 -*-
 
 from tkinter import *
+from tkinter import ttk
 from tkinter import messagebox
 from class_shipInterface import Ship
 
 class Interface():
-	def __init__(self):
+	def __init__(self, pNumber_init, pseudo_init):
 		self.letterLabel = [ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
 		self.allPos = ['D', 'R', 'U', 'L']
 		self.nbShip = 6
 		self.lastPos = 0
 		self.saveX = -1
+		self.pNumber = pNumber_init
+		self.pPseudo = pseudo_init
 		self.root = Tk()
-		self.allTab = self.initTab()
+		self.bigFrame()
+		#self.allTab = self.initTab()
+		self.beginBateau()
 		self.root.mainloop()
 
-	def initTab(self):
+	def bigFrame(self):
 		#frame qui contient tout les éléments
-		cadre = Frame(self.root, width=1050, height=500,  borderwidth=1, bg="white")
+		cadre = Frame(self.root, width=1050, height=500, bg="white", borderwidth=1)
 		cadre.pack()
 
 		Label(cadre, text="Jeu de la bataille navale !", bg="white").pack(padx=10, pady=10)
+
+		notebook = ttk.Notebook(cadre)
+		f1 = Frame(notebook)   # first page, which would get widgets gridded into it
+		f2 = Frame(notebook)   # second page
+		notebook.bind("<ButtonRelease-1>", self.changeTab)
+		notebook.add(f1, text='PLayer1')
+		notebook.add(f2, text='Player2')
+
+		notebook.pack()
+		self.initTab(f1)
+		self.initTab(f2)
+
+		return cadre
+
+	def changeTab(self, event):
+		if self.nbShip > 1:
+			messagebox.showerror("Bateau", "Veuillez finir de placer vos bateaux !")
+			return False
+		else:
+			if self.pNumber == 1:
+				self.pNumber = 2
+			else:
+				self.pNumber = 1
+			self.nbShip = 6
+			print (self.pNumber)
+
+			self.beginBateau()
+
+
+	def initTab(self, root):
+		cadre = Frame(root, width=1050, height=500,  borderwidth=1, bg="white")
+		cadre.pack()
 
 		#Frame premier tableau
 		tableau1 = Frame(cadre, width=500, height=500,  borderwidth=1, bg="white")
@@ -119,14 +156,20 @@ class Interface():
 					idPos = 1
 					rect = caller.create_rectangle(entX, entY, entX+calShip, entY+50, fill="red", tags="rect")
 				#bateau haut
-				else:
+				elif (entY - calShip) >=0:
 					pos = "U"
 					idPos = 2
 					rect = caller.create_rectangle(entX, entY+50, entX+50, entY-calShip+50, fill="red", tags="rect")
+				elif (entX - calShip) >=0:
+					pos = "L"
+					idPos = 3
+					rect = caller.create_rectangle(entX+50, entY, entX-calShip+50, entY+50, fill="red", tags="rect")
+				else:
+					messagebox.showError("Placement", "Impossible à placer !")
 				
 				if self.nbShip < 6:
 					self.tmpShip.insertShip()
-				tmpShip = Ship(1, lengShip, int(x//50) , int(y//50), pos)
+				tmpShip = Ship(self.pNumber, lengShip, int(x//50) , int(y//50), pos)
 
 				inc = -1
 				if tmpShip.bCreated == False:
@@ -137,7 +180,7 @@ class Interface():
 					inc = idPos + 1
 					while inc != idPos:
 						print(self.allPos[inc])
-						tmpShip = Ship(1, lengShip, int(x//50) , int(y//50), self.allPos[inc])
+						tmpShip = Ship(self.pNumber, lengShip, int(x//50) , int(y//50), self.allPos[inc])
 						if tmpShip.bCreated == True:
 							pos = self.allPos[inc]
 							if inc == 0:
@@ -210,7 +253,7 @@ class Interface():
 				self.tournerBateau(event)
 				return
 
-			tmpShip = Ship(1, lengShip, int(x//50) , int(y//50), pos)
+			tmpShip = Ship(self.pNumber, lengShip, int(x//50) , int(y//50), pos)
 			if tmpShip.bCreated == False:
 				caller.delete(rect)
 				messagebox.showinfo("déplacer", "Impossible à déplacer !")
@@ -227,7 +270,14 @@ class Interface():
 		entX = x // 50 * 50
 		entY = y // 50 * 50
 
-		if (entX + 50 <= 550) and (entY + 50 <= 550) and (entX - 50 >= 0) and (entY - 50 >= 0):
-			rect = caller.create_rectangle(entX, entY, entX+50, entY+50, fill="red")
+		if x > 50 and x < 550 and y > 50 and y < 550:
+			#rect = caller.create_rectangle(entX, entY, entX+50, entY+50, fill="red")
+			ovl = caller.create_oval(entX+5, entY+5, entX+45, entY+45, fill="blue")
 
-Interface()
+	def beginBateau(self):
+		text = "player" + str(self.pNumber) + "veuillez placer vos bateaux"
+		messagebox.showinfo("Bienvenue", text)
+
+
+
+Player1 = Interface(1, "ed")

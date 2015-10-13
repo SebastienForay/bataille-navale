@@ -19,7 +19,11 @@ class Ship():
 		#insert prev
 		self.bCreated = False
 		self.player = player_init
+		self.tablePositionsP1 = []
+		self.tablePositionsP2 = []
 		self.tablePositions = []
+
+		print(self.player)
 
 		self.Create(size_init, posX_init, posY_init, orientation_init)
 
@@ -37,8 +41,18 @@ class Ship():
 			print("Erreur à la création du bateau ! Veuillez le refaire !")
 			self.bCreated = False
 
+		if self.player == 1:
+			self.tablePositionsP1 = self.tablePositions
+		else:
+			self.tablePositionsP2 = self.tablePositions
+
 	def calculatePositions(self):
 		bResultat = True
+
+		if self.player == 1:
+			self.tablePositions = self.tablePositionsP1
+		else:
+			self.tablePositions = self.tablePositionsP2
 
 		tmpPosX = self.posX
 		tmpPosY = self.posY
@@ -51,12 +65,13 @@ class Ship():
 						
 		# Calcul vers le haut
 		if self.orientation == 'U':
+			print (posYInt - tmpSize)
 			if posYInt - tmpSize >= 0:
 				for x in range(posYInt-1, posYInt-tmpSize, -1):
 					position = "'" + str(tmpPosX) + str(self.tablePosYLetters[x-1]) + "'"
 					self.tablePositions.append(position)
 			else:
-				bResultat = False
+				return False
 		# Calcul vers le bas
 		elif self.orientation == 'D':
 			if posYInt + (tmpSize-1) <= 10:
@@ -64,15 +79,15 @@ class Ship():
 					position = "'" + str(tmpPosX) + str(self.tablePosYLetters[x-1]) + "'"
 					self.tablePositions.append(position)
 			else:
-				bResultat = False
+				return False
 		# Calcul vers la gauche
-		elif self.orientation == 'L':
+		elif self.orientation == 'L' :
 			if tmpPosX - tmpSize >= 0:
 				for x in range(tmpPosX-1, tmpPosX-tmpSize, -1):
 					position = "'" + str(x) + str(self.tablePosYLetters[posYInt-1]) + "'"
 					self.tablePositions.append(position)
 			else:
-				bResultat = False
+				return False
 		# Calcul vers la droite
 		elif self.orientation == 'R':
 			if tmpPosX + (tmpSize-1) <= 10:
@@ -80,13 +95,11 @@ class Ship():
 					position = "'" + str(x) + str(self.tablePosYLetters[posYInt-1]) + "'"
 					self.tablePositions.append(position)
 			else:
-				bResultat = False
-
-		print("[DEBUG] tablePositions : ")
+				return False
+			print("[DEBUG] tablePositions : ")
 		for x in range(0, len(self.tablePositions)):
 			print(self.tablePositions[x])
-
-		# Vérification de la disponibilité de toutes les positions
+			# Vérification de la disponibilité de toutes les positions
 		if (self.player == 1) and (len(self.tableAllPosShipsP1) > 0):
 			print("[DEBUG] Test All Pos Player1")
 			for x in range(0, len(self.tablePositions)):
@@ -97,7 +110,6 @@ class Ship():
 					bResultat = True
 					continue
 				else:
-					print("test")
 					bResultat = False
 					break
 		elif (self.player == 2) and (len(self.tableAllPosShipsP2) > 0):
@@ -112,19 +124,15 @@ class Ship():
 					bResultat = False
 					break
 
-				if bResultat == False:
-					break
-
 		# Print les positions calculées pour le debug
-		#if bResultat == True:
-		#	print("[DEBUG] Positions du bateau :")
-		#	for x in range(0, len(self.tablePositions)):
-		#		print(self.tablePositions[x])
-		#		if self.player == 1:
-		#			self.tableAllPosShipsP1.append(self.tablePositions[x])
-		#		elif self.player == 2:
-		#			self.tableAllPosShipsP2.append(self.tablePositions[x])
-
+	#if bResultat == True:
+	#	print("[DEBUG] Positions du bateau :")
+	#	for x in range(0, len(self.tablePositions)):
+	#		print(self.tablePositions[x])
+	#		if self.player == 1:
+	#			self.tableAllPosShipsP1.append(self.tablePositions[x])
+	#		elif self.player == 2:
+	#			self.tableAllPosShipsP2.append(self.tablePositions[x])
 		return bResultat
 
 	def insertShip(self):
