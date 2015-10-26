@@ -35,6 +35,9 @@ class Interface():
 		notebook.add(f1, text='PLayer1')
 		notebook.add(f2, text='Player2')
 
+		self.F1 = f1
+		self.F2 = f2
+
 		notebook.pack()
 		self.initTab(f1)
 		self.initTab(f2)
@@ -59,6 +62,9 @@ class Interface():
 	def initTab(self, root):
 		cadre = Frame(root, width=1050, height=500,  borderwidth=1, bg="white")
 		cadre.pack()
+
+		reset = Button(cadre, text = "reset", command=self.resetShip)
+		reset.pack()
 
 		#Frame premier tableau
 		tableau1 = Frame(cadre, width=500, height=500,  borderwidth=1, bg="white")
@@ -278,6 +284,13 @@ class Interface():
 		text = "player" + str(self.pNumber) + "veuillez placer vos bateaux"
 		messagebox.showinfo("Bienvenue", text)
 
-
+	def resetShip(self):
+		if hasattr(self,'tmpShip'):
+			self.tmpShip.deleteAllShip()
+			self.nbShip = 6
+			if self.pNumber == 1:
+				for widget in self.F1.winfo_children():
+					widget.destroy()
+				self.initTab(self.F1)
 
 Player1 = Interface(1, "ed")

@@ -144,3 +144,10 @@ class Ship():
 				self.tableAllPosShipsP2.append(self.tablePositions[x])
 
 		self.tablePositions.clear()
+
+	def deleteAllShip(self):
+		self.tablePositions.clear()
+		if self.player == 1:
+			self.tableAllPosShipsP1.clear()
+		elif self.player == 2:
+			self.tableAllPosShipsP2.clear()
