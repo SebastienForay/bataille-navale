@@ -9,7 +9,7 @@ import os, sys
 class Player():
 	tablePosYLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', ]
 
-	def __init__(self, pNumber_init, pseudo_init):
+	def __init__(self, type_init, pNumber_init, pseudo_init, connectionServer_init):
 		# Plateau où sont placés les bateaux du joueur
 		self.plateauPlayerShips = [ ["   "]*10 for _i in range(10) ]
 		# Plateau où le joueur voit où il a déjà tiré et touché des bateaux
@@ -18,13 +18,19 @@ class Player():
 		# Tableau contenant les 5 bateaux du joueur
 		self.tableShips = []
 
+		self.type = type_init
 		self.pNumber = pNumber_init
 		self.pseudo = pseudo_init
 		self.gameboard = Gameboard(self.plateauPlayerShips, self.plateauPlayerFiring)
 
-		self.placeShips()
-		self.insertPlateau()
-		self.printGameboard()
+		self.connectionServer = connectionServer_init
+
+		self.firedPos = ""
+		self.bPlays = False
+
+		if self.type == "LOCAL":
+			self.placeShips()
+			self.insertPlateau()
 
 	def placeShips(self):
 		print("Vous devez placer vos bateaux. Vous en disposer de 5 : \n	- 1 porte-avions (5 cases)\n	- 1 croiseur (4 cases)\n	- 1 sous-marin( 3 cases)\n	- 1 contre-torpilleur (3 cases) \n	- 1 torpilleur (2 cases) ")
@@ -109,11 +115,12 @@ class Player():
 							continue
 
 				# Instanciation du bateau avec les paramètres précédemment saisis
-				tmpShip = Ship(int(self.pNumber), int(shipSize), int(posX), str(posY), str(orientation))
+				tmpShip = Ship(self, int(shipSize), int(posX), str(posY), str(orientation))
 
 				if tmpShip.bCreated == True:
 					# Ajout du bateau au tableau de sauvegarde
 					self.tableShips.append(tmpShip)
+					self.connectionServer.send(str.encode("/createship " + str(shipCount) + str(shipSize) + str(posX) + str(posY) + str(orientation)))
 
 					"""if self.pNumber == 1:
 						print("[DEBUG] All pos :")

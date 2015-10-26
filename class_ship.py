@@ -31,10 +31,12 @@ class Ship():
 
 		# calcul des coordonnées occupées par le bateau (fonction) pour ajout dans tablePositions
 		if self.calculatePositions() == True:
-			print("Bateau créé : longueur de " + str(self.size) + ", position (" + str(self.posX) + "/" + str(self.posY) + "), orientation : " + str(self.orientation))
+			if self.player.type == "LOCAL":
+				print("Bateau créé : longueur de " + str(self.size) + ", position (" + str(self.posX) + "/" + str(self.posY) + "), orientation : " + str(self.orientation))
 			self.bCreated = True
 		else:
-			print("Erreur à la création du bateau ! Veuillez le refaire !")
+			if self.player.type == "LOCAL":
+				print("Erreur à la création du bateau ! Veuillez le refaire !")
 			self.bCreated = False
 
 	def calculatePositions(self):
@@ -83,7 +85,7 @@ class Ship():
 				bResultat = False
 
 		# Vérification de la disponibilité de toutes les positions
-		if (self.player == 1) and (len(self.tableAllPosShipsP1) > 0):
+		if (self.player.pNumber == 1) and (len(self.tableAllPosShipsP1) > 0):
 			for x in range(0, len(self.tablePositions)):
 				try:
 					a = self.tableAllPosShipsP1.index(self.tablePositions[x])
@@ -96,7 +98,7 @@ class Ship():
 
 				if bResultat == False:
 					break
-		elif (self.player == 2) and (len(self.tableAllPosShipsP2) > 0):
+		elif (self.player.pNumber == 2) and (len(self.tableAllPosShipsP2) > 0):
 			for x in range(0, len(self.tablePositions)):
 				try:
 					a = self.tableAllPosShipsP2.index(self.tablePositions[x])
@@ -115,9 +117,9 @@ class Ship():
 			#print("[DEBUG] Positions du bateau :")
 			for x in range(0, len(self.tablePositions)):
 				#print(self.tablePositions[x])
-				if self.player == 1:
+				if self.player.pNumber == 1:
 					self.tableAllPosShipsP1.append(self.tablePositions[x])
-				elif self.player == 2:
+				elif self.player.pNumber == 2:
 					self.tableAllPosShipsP2.append(self.tablePositions[x])
 
 		return bResultat
