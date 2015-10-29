@@ -49,7 +49,7 @@ class ThreadClient(threading.Thread):
 
 					for cle in list_sockPlayers:
 						if cle != self.threadName:
-							list_sockPlayers[cle].send(str.encode(self.playerPseudo + ": " + sayMsg))
+							list_sockPlayers[cle].send(str.encode("said " + self.playerPseudo + ": " + sayMsg))
 
 				elif command == "step":
 					arg = str(msg[indexSpace+1:])

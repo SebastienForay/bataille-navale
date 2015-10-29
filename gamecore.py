@@ -101,12 +101,12 @@ while True:
 			index = 0
 			bFound = False
 			try:
-				index = playerOnline.tableShips[x].tablePositions.index(posFire[0:3])
+				index = playerOnline.tableShips[x].tablePositions.index(posFire)
 			except ValueError:
 				#print("[DEBUG] Non trouvé dans le bateau " + str(x))
 				if x == 4 and bFound == False:
-					posX = int(posFire[0:1]) - 1
-					posYInt = playerLocal.tablePosYLetters.index(posFire[1:2])
+					posX = int(posFire[0:len(posFire)-1]) - 1
+					posYInt = playerLocal.tablePosYLetters.index(posFire[len(posFire)-1:])
 					playerLocal.plateauPlayerFiring[posX][posYInt] = " * "
 				continue
 			else:
@@ -114,8 +114,8 @@ while True:
 				bFound = True
 				playerOnline.tableShips[x].size -= 1
 
-				posX = int(posFire[0:1]) - 1
-				posYInt = playerLocal.tablePosYLetters.index(posFire[1:2])
+				posX = int(posFire[0:len(posFire)-1]) - 1
+				posYInt = playerLocal.tablePosYLetters.index(posFire[len(posFire)-1:len(posFire)])
 				playerLocal.plateauPlayerFiring[posX][posYInt] = " Ø "
 				break
 		playerLocal.bPlays = False
@@ -135,12 +135,12 @@ while True:
 			index = 0
 			bFound = False
 			try:
-				index = playerLocal.tableShips[x].tablePositions.index(posFire[0:3])
+				index = playerLocal.tableShips[x].tablePositions.index(posFire)
 			except ValueError:
 				#print("[DEBUG] Non trouvé dans le bateau " + str(x))
 				if x == 4 and bFound == False:
-					posX = int(posFire[0:1]) - 1
-					posYInt = playerOnline.tablePosYLetters.index(posFire[1:2])
+					posX = int(posFire[0:len(posFire)-1]) - 1
+					posYInt = playerOnline.tablePosYLetters.index(posFire[len(posFire)-1:len(posFire)])
 					playerOnline.plateauPlayerFiring[posX][posYInt] = " * "
 				continue
 			else:
@@ -148,8 +148,8 @@ while True:
 				bFound = True
 				playerLocal.tableShips[x].size -= 1
 
-				posX = int(posFire[0:1]) - 1
-				posYInt = playerOnline.tablePosYLetters.index(posFire[1:2])
+				posX = int(posFire[0:len(posFire)-1]) - 1
+				posYInt = playerOnline.tablePosYLetters.index(posFire[len(posFire)-1:len(posFire)])
 				playerOnline.plateauPlayerFiring[posX][posYInt] = " Ø "
 				break
 

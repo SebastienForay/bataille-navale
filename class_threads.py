@@ -14,9 +14,11 @@ class ThreadReceive(threading.Thread):
 	def run(self):
 		while True:
 			message_recu = (self.sock.recv(8192)).decode()
-			print(message_recu)
+			#print(message_recu)
 			if message_recu == "disconnected":
 				break
+			elif message_recu[0:5] == "said ":
+				print("\n" + message_recu[5:] + "\n")
 			elif message_recu == "ready":
 				self.bReceivedReady = True
 				message_recu = ""
@@ -71,7 +73,8 @@ class ThreadEmit(threading.Thread):
 		while True:
 			while self.bpause == False:
 				message_emis = str("/" + input())
-				self.sock.send(str.encode(message_emis))
+				if len(message_emis) > 2:
+					self.sock.send(str.encode(message_emis))
 			time.sleep(0.5)
 
 	def pauseThread(self):
