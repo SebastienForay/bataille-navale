@@ -170,6 +170,18 @@ while True:
 						print("Vous n'avez plus de bateaux, la partie est terminée !")
 						connectionServer.send(str.encode("/dead"))
 						playerLocal.winner = False
+						playerOnline.winner = True
+						break
+	# Check si le joueur distant n'a plus de bateaux
+	if playerOnline.tableShips[0].size == 0:
+		if playerOnline.tableShips[1].size == 0:
+			if playerOnline.tableShips[2].size == 0:
+				if playerOnline.tableShips[3].size == 0:
+					if playerOnline.tableShips[4].size == 0:
+						print("Votre adversaire n'a plus de bateaux, la partie est terminée !")
+						connectionServer.send(str.encode("/winner"))
+						playerOnline.winner = False
+						playerLocal.winner = True
 						break
 
 #save score JSON

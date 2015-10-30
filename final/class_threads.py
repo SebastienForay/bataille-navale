@@ -101,7 +101,8 @@ class ThreadEmit(threading.Thread):
 		while True:
 			while self.bpause == False:
 				message_emis = str("/" + input())
-				self.sock.send(str.encode(message_emis))
+				if len(message_emis) > 2:
+					self.sock.send(str.encode(message_emis))
 			time.sleep(0.5)
 
 	def pauseThread(self):

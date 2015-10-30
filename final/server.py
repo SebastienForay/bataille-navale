@@ -142,6 +142,10 @@ class ThreadClient(threading.Thread):
 					for cle in list_sockPlayers:
 						if cle != self.threadName:
 							list_sockPlayers[cle].send(str.encode("winner"))
+				elif command == "winner":
+					for cle in list_sockPlayers:
+						if cle != self.threadName:
+							list_sockPlayers[cle].send(str.encode("dead"))
 
 		self.sock.close()
 		del list_sockPlayers[self.threadName]
