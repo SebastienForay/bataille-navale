@@ -49,6 +49,7 @@ class Interface():
 		notebook.pack()
 		self.initTab(f1)
 		self.initTab(f2)"""
+		self.cadre = cadre
 		self.initTab(cadre)
 		return cadre
 
@@ -304,9 +305,9 @@ class Interface():
 			self.tmpShip.deleteAllShip()
 			self.nbShip = 6
 			if self.pNumber == 1:
-				for widget in self.F1.winfo_children():
+				for widget in self.cadre.winfo_children():
 					widget.destroy()
-				self.initTab(self.F1)
+				self.initTab(self.cadre)
 
 	def waitShip(self):
 		"""wait = Frame(self.root, width=2000, height=200, bg="black", borderwidth=1)
